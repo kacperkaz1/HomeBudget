@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Śledzenie Budżetu Domowego - Osadzone Obrazy</title>
+  <!-- Czcionki Google -->
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|Roboto:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Nagłówek z logo (osadzone w data URI) po lewej oraz nawigacją -->
+  <header>
+    <div class="top-bar">
+      <div class="logo-container">
+          <img src="images/logo.png" alt="Logo strony" class="logo-ai">
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#" data-tab="dashboard" class="active">Dashboard</a></li>
+          <li><a href="#" data-tab="add-transaction">Dodaj Transakcję</a></li>
+          <li><a href="#" data-tab="reports">Raporty</a></li>
+          <li><a href="#" data-tab="settings">Ustawienia</a></li>
+          <li><a href="#" data-tab="analytics">Analizy</a></li>
+          <li><a href="#" data-tab="categories">Kategorie</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Główny layout z panelami bocznymi -->
+  <div class="container">
+    <aside class="sidebar left">
+      <div class="ad-panel">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMzAwIj4KICA8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZlYjQ3YiIvPgogIDx0ZXh0IHg9Ijc1IiB5PSIxNjAiIGZvbnQtc2l6ZT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iUm9ib3RvIj5CYW5lciAxPC90ZXh0Pgo8L3N2Zz4=" alt="Obraz 1">
+      </div>
+      <div class="ad-panel">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMzAwIj4KICA8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2ZmN2U1ZiIvPgogIDx0ZXh0IHg9Ijc1IiB5PSIxNjAiIGZvbnQtc2l6ZT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iUm9ib3RvIj5CYW5lciAyPC90ZXh0Pgo8L3N2Zz4=" alt="Obraz 2">
+      </div>
+    </aside>
+    <main>
+      <!-- Sekcja Hero -->
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h2>Nowoczesne Narzędzie do Zarządzania Finansami</h2>
+          <p>Kontroluj swoje wydatki, zarządzaj przychodami i planuj budżet z pasją!</p>
+          <button onclick="document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });">Rozpocznij</button>
+        </div>
+      </section>
+      <!-- Zakładki -->
+      <section id="dashboard" class="tab-content">
+        <h2>Dashboard</h2>
+        <div id="transactions-list">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Typ</th>
+                <th>Kategoria</th>
+                <th>Kwota</th>
+                <th>Opis</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody id="transactions-table-body">
+              <!-- Rekordy transakcji – ładowane dynamicznie lub przykładowe -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="add-transaction" class="tab-content" style="display: none;">
+        <h2>Dodaj Transakcję</h2>
+        <form id="transactionForm">
+          <div class="form-group">
+            <label for="type">Typ:</label>
+            <select id="type" name="type" required>
+              <option value="income">Przychód</option>
+              <option value="expense">Wydatek</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="category">Kategoria:</label>
+            <input type="text" id="category" name="category" required>
+          </div>
+          <div class="form-group">
+            <label for="amount">Kwota:</label>
+            <input type="number" step="0.01" id="amount" name="amount" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Opis:</label>
+            <textarea id="description" name="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="date">Data transakcji:</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <button type="submit">Dodaj</button>
+        </form>
+        <div id="formResult"></div>
+      </section>
+      <section id="reports" class="tab-content" style="display: none;">
+        <h2>Raporty</h2>
+        <p>
+          Tutaj znajdziesz szczegółowe zestawienia finansowe, wykresy przychodów i wydatków oraz narzędzia do generowania raportów okresowych.
+        </p>
+      </section>
+      <section id="settings" class="tab-content" style="display: none;">
+        <h2>Ustawienia</h2>
+        <p>
+          Skonfiguruj aplikację według własnych potrzeb: zmień walutę, format daty, dodaj zabezpieczenia hasłem lub ustaw alerty o przekroczeniu budżetu.
+        </p>
+      </section>
+      <section id="analytics" class="tab-content" style="display: none;">
+        <h2>Analizy</h2>
+        <p>
+          Zaawansowane narzędzia analityczne pomogą Ci śledzić trendy w wydatkach, porównywać przychody i planować przyszłe inwestycje.
+        </p>
+      </section>
+      <section id="categories" class="tab-content" style="display: none;">
+        <h2>Kategorie</h2>
+        <p>
+          Dodawaj, edytuj i usuwaj kategorie transakcji. Organizuj swoje finanse, aby łatwiej je było śledzić i analizować.
+        </p>
+      </section>
+    </main>
+    <aside class="sidebar right">
+      <div class="ad-panel">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMzAwIj4KICA8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzAwN0JGRiIvPgogIDx0ZXh0IHg9Ijc1IiB5PSIxNjAiIGZvbnQtc2l6ZT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iUm9ib3RvIj5CYW5lciAzPC90ZXh0Pgo8L3N2Zz4=" alt="Obraz 3">
+      </div>
+      <div class="ad-panel">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNTAiIGhlaWdodD0iMzAwIj4KICA8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzI4YTc0NSIvPgogIDx0ZXh0IHg9Ijc1IiB5PSIxNjAiIGZvbnQtc2l6ZT0iMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0iUm9ib3RvIj5CYW5lciA0PC90ZXh0Pgo8L3N2Zz4=" alt="Obraz 4">
+      </div>
+    </aside>
+  </div>
+  
+  <!-- Stopka -->
+  <footer>
+    <p>&copy; 2025 Śledzenie Budżetu Domowego. Wszelkie prawa zastrzeżone.</p>
+    <p>
+      Kontakt: <a href="mailto:kontakt@budzet-domowy.pl">kontakt@budzet-domowy.pl</a> | Regulamin | Polityka Prywatności
+    </p>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>
