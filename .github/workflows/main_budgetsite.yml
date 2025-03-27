@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - budgetsite
+name: Build and deploy Node.js app to Azure Web App - BudgetSite
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read #This is required for actions/checkout
 
@@ -28,12 +28,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      
+
+      - name: Zip artifact for deployment
+        run: zip release.zip ./* -r
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,19 +53,22 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
+
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
       
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7F8F657C39AF4C08AFB6D9C7F99D7F17 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_98EFF06FB44146C6A9C962CE52ACCD55 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B987F49C122B413FB593891A1787C344 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B1B3A127F63144E6AC739EB6E32113DA }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6257A0871BD343BB8BEC5485C7B0A416 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_48C6B9554DFE4DC3BB24E41F65E36721 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
         with:
-          app-name: 'budgetsite'
+          app-name: 'BudgetSite'
           slot-name: 'Production'
           package: .
           
